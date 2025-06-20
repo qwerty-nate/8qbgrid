@@ -23,14 +23,14 @@ print(result1)
 '''#fix
 We then define functions based on the state vectors measured for ijk
 ## Call on measurement gate results to execute an if statement that confirms the state of the qubit
-# If the qubit is in state |0⟩, execute the on function - |000>
-# If the qubit is in state |1⟩, execute the off function - |111>
-# If the qubit is in state |2⟩, execute the send function - |010>
-# If the qubit is in state |3⟩, execute the receive function - |001>
-# If the qubit is in state |4⟩, execute the read function - |101>
-# If the qubit is in state |5⟩, execute the write function - |110>
-# If the qubit is in state |6⟩, execute the delete function - |100>
-# If the qubit is in state |7⟩, execute the store function - |011>
+# If the qubit is in state |000⟩, execute the on function
+# If the qubit is in state |111⟩, execute the off function
+# If the qubit is in state |010⟩, execute the send function
+# If the qubit is in state |001⟩, execute the receive function
+# If the qubit is in state |101⟩, execute the read function
+# If the qubit is in state |110⟩, execute the write function
+# If the qubit is in state |100⟩, execute the delete function
+# If the qubit is in state |011⟩, execute the store function
 '''
 
 #Reset i to |0> and entangle with j and k. Print circuit and return 000 state. 
