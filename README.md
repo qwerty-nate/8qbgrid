@@ -1,4 +1,7 @@
 # Eight Qubit Grid
-Using a circuit of eight qubits, I am investigating methods for controllable computation and communication. 
-The circuit hinges on a 3 qubit control switch which uses entanglement to accomplish vector states that are mapped to functions.
+# Work In Progress
+
+Working with Google Cirq + Python, I am investigating methods for controllable computation using an eight qubit cirqcuit.
+The system hinges on a 3 qubit control switch whose vector states are parameters to functions.
+
 
