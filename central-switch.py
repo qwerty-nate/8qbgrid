@@ -11,7 +11,7 @@ import cirq
 i = cirq.NamedQubit('i')
 j = cirq.NamedQubit('j')
 k = cirq.NamedQubit('k')
-circuit1 = cirq.Circuit(cirq.H(i), cirq.CNOT(i,j), cirq.CNOT(i,k),cirq.X(i)**0.5, cirq.measure(i,j,k))
+circuit1 = cirq.Circuit(cirq.H(i), cirq.CNOT(i,j), cirq.CNOT(i,k),cirq.measure(i,j,k))
 simulator = cirq.Simulator()
 result1 = simulator.run(circuit1, repetitions=10)
 
