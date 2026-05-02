@@ -1,6 +1,7 @@
-//Searching a semantic soace in the shape of a octahedron (diamond).
-//Search is done one triangular face at a time.
-//This rest locates each instance of a letter.
+//Searching a semantic space in the shape of a octahedron (diamond).
+//Search is done one triangle at a time.
+//Each triangle is rotated horizontally andvertically to tranverse the space.
+//This search locates each instance of a letter from 300 randomly sorted letters.
 
 import { useState, useRef, useMemo } from “react”;
 
