@@ -35,16 +35,15 @@ We then define functions based on the state vectors measured for ijk
 
 #Reset i to |0> and entangle with j and k. Print circuit and return 000 state. 
 def on_state(i, j, k):
-    def on_state(i, j, k):
-    circuit_on = cirq.Circuit(cirq.R(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i,j,k)) 
+    circuit_on = cirq.Circuit(cirq.reset(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_on, repetitions=1)
-    measurement = "".join((map(str,result.measurements.values())))
+    measurement = "".join((map(str, result.measurements.values())))
     vector = ''.join(measurement.split())[2:5]
     print("Circuit on_state:"), print(circuit_on)
-    print("Result one_state:"), print(result)
+    print("Result on_state:"), print(result)
     print("Measurement vector:", vector)
-    return(vector)
+    return vector
 on_state(i, j, k)
 
 ''' 
@@ -62,7 +61,7 @@ Measurement vector: 000
 
 #Reset i to |0>, X flip i to |1> and entangle with j and k. Print circuit and return 111 state. 
 def off_state(i, j, k):
-    circuit_off = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i, j, k))
+    circuit_off = cirq.Circuit(cirq.reset(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_off, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -88,7 +87,7 @@ Measurement vector: 111
 
 #Reset i to |0>, X flip i and entangle with j and k. X flip j. Print circuit and return 101 state. 
 def read_state(i,j,k): 
-    circuit_read = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(j), cirq.measure(i,j,k))
+    circuit_read = cirq.Circuit(cirq.reset(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(j), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_read, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -116,7 +115,7 @@ Measurement vector: 101
 
 #Reset i to |0>, X flip i and entangle with j and k. X flip k. Print circuit and return 110 state. 
 def write_state(i,j,k):
-    circuit_write = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(k), cirq.measure(i,j,k))
+    circuit_write = cirq.Circuit(cirq.reset(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(k), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_write, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -142,7 +141,7 @@ Measurement vector: 110
 
 #Reset i to |0> and entangle with j and k. X flip k. Print circuit and return 001 state. 
 def receive_state(i,j,k): 
-    circuit_receive = cirq.Circuit(cirq.R(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(k), cirq.measure(i,j,k)) 
+    circuit_receive = cirq.Circuit(cirq.reset(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(k), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_receive, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -168,7 +167,7 @@ Measurement vector: 001
 
 #Reset i to |0> and entangle with j and k. X flip j. Print circuit and return 010 state. 
 def send_state(i,j,k):
-    circuit_send = cirq.Circuit(cirq.R(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(j), cirq.measure(i,j,k))
+    circuit_send = cirq.Circuit(cirq.reset(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(j), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_send, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -196,7 +195,7 @@ Measurement vector: 010
 
 #Reset i to |0>, X flip i and entangle with j and k. X flip i. Print circuit and return 011 state. 
 def store_state(i,j,k):
-    circuit_store = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(i), cirq.measure(i,j,k))
+    circuit_store = cirq.Circuit(cirq.reset(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(i), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_store, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -222,7 +221,7 @@ Measurement vector: 011
 
 #Reset i to |0> and entangle with j and k. X flip i to |1>. Print circuit and return 100 state. 
 def delete_state(i,j,k): # |100>
-    circuit_delete = cirq.Circuit(cirq.R(i), cirq.CNOT(i,j), cirq.CNOT(i, k), cirq.X(i), cirq.measure(i,j,k))
+    circuit_delete = cirq.Circuit(cirq.reset(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.X(i), cirq.measure(i, j, k))
     sim = cirq.Simulator()
     result = sim.run(circuit_delete, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
@@ -247,7 +246,14 @@ Measurement vector: 100
 '''
 
 if __name__ == '__main__':
-    main()
+    on_state(i, j, k)
+    off_state(i, j, k)
+    read_state(i, j, k)
+    write_state(i, j, k)
+    receive_state(i, j, k)
+    send_state(i, j, k)
+    store_state(i, j, k)
+    delete_state(i, j, k)
 
 
 
