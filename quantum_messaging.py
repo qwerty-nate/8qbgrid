@@ -71,6 +71,46 @@ def QFT3(q):
 def SUM(control, target):
     return _mg(_SUM, (3, 3))(control, target)
 
+# ── Multi-qudit reset gate ────────────────────────────────────────────────────
+
+class MultiResetGate(cirq.Gate):
+    """
+    Resets n qudits to |0⟩ simultaneously.
+
+    Works on any qudit dimension (default 3 for qutrits).
+    Decomposes into individual cirq.reset() channels so the simulator
+    handles each qudit's collapse independently.
+
+    Usage:
+        reset_all(q0, q1, q2)               # reset 3 qutrits
+        reset_all(q0, q1, dimension=2)      # reset 2 qubits
+        MultiResetGate(4)(q0, q1, q2, q3)  # same as reset_all on 4 qutrits
+    """
+
+    def __init__(self, n: int, dimension: int = 3):
+        self._n = n
+        self._d = dimension
+
+    def _num_qubits_(self) -> int:
+        return self._n
+
+    def _qid_shape_(self) -> tuple:
+        return (self._d,) * self._n
+
+    def _decompose_(self, qudits):
+        return [cirq.reset(q) for q in qudits]
+
+    def _circuit_diagram_info_(self, args) -> list:
+        return [f'|0⟩'] * self._n
+
+    def __repr__(self) -> str:
+        return f'MultiResetGate(n={self._n}, d={self._d})'
+
+
+def reset_all(*qudits, dimension: int = 3) -> cirq.Operation:
+    """Reset any number of qudits to |0⟩ in a single gate call."""
+    return MultiResetGate(len(qudits), dimension)(*qudits)
+
 # ── 8-Qutrit register ─────────────────────────────────────────────────────────
 
 Q = [cirq.NamedQid(f'q{i}', dimension=3) for i in range(8)]
@@ -123,6 +163,9 @@ def init_circuit(op: str, msg_id: int = 0, channel: int = 0, priority: int = 0) 
 
     c0, c1 = OP_STATE[op]
     gates = []
+
+    # Reset all 8 qutrits to |0⟩ before encoding — safe for repeated calls
+    gates.append(reset_all(*Q))
 
     # Control qutrits: set operation mode
     gates += _set_qutrit(CTRL[0], c0)
