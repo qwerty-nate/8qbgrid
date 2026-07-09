@@ -11,6 +11,8 @@ import cirq
 i = cirq.NamedQubit('i')
 j = cirq.NamedQubit('j')
 k = cirq.NamedQubit('k')
+
+# Circuit1 practice circuit simulator print
 circuit1 = cirq.Circuit(cirq.H(i), cirq.CNOT(i,j), cirq.CNOT(i,k),cirq.measure(i,j,k))
 simulator = cirq.Simulator()
 result1 = simulator.run(circuit1, repetitions=10)
@@ -34,15 +36,15 @@ We then define functions based on the state vectors measured for ijk
 '''
 
 #Reset i to |0> and entangle with j and k. Print circuit and return 000 state. 
-def on_state(i, j, k):
+def off_state(i, j, k):
     def on_state(i, j, k):
-    circuit_on = cirq.Circuit(cirq.R(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i,j,k)) 
+    circuit_off = cirq.Circuit(cirq.reset(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i,j,k)) 
     sim = cirq.Simulator()
-    result = sim.run(circuit_on, repetitions=1)
+    result = sim.run(circuit_off, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
     vector = ''.join(measurement.split())[2:5]
-    print("Circuit on_state:"), print(circuit_on)
-    print("Result one_state:"), print(result)
+    print("Circuit off_state:"), print(circuit_off)
+    print("Result off_state:"), print(result)
     print("Measurement vector:", vector)
     return(vector)
 on_state(i, j, k)
@@ -61,14 +63,15 @@ Measurement vector: 000
 '''
 
 #Reset i to |0>, X flip i to |1> and entangle with j and k. Print circuit and return 111 state. 
-def off_state(i, j, k):
-    circuit_off = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i, j, k))
+def on_state(i, j, k):
+    case in 
+    circuit_on = cirq.Circuit(cirq.R(i), cirq.X(i), cirq.CNOT(i, j), cirq.CNOT(i, k), cirq.measure(i, j, k))
     sim = cirq.Simulator()
-    result = sim.run(circuit_off, repetitions=1)
+    result = sim.run(circuit_on, repetitions=1)
     measurement = "".join((map(str,result.measurements.values())))
     vector = ''.join(measurement.split())[2:5]
-    print("Circuit off_state:"), print(circuit_off)
-    print("Result off_state:"), print(result)
+    print("Circuit on_state:"), print(circuit_on)
+    print("Result on_state:"), print(result)
     print("Measurement vector:", vector)
     return(vector)
 off_state(i,j,k)
